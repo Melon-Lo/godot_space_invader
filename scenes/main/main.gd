@@ -3,6 +3,7 @@ extends Node2D
 var enemy_scene = preload("res://scenes/enemy/enemy.tscn")
 var score = 0
 
+
 # 生成所有敵人
 func spawn_all_enemies() -> void:
 	for x in range(9):
@@ -13,9 +14,11 @@ func spawn_all_enemies() -> void:
 			enemy_scene_instance.start(pos)
 			enemy_scene_instance.died.connect(_on_enemy_died)
 
+
 # 敵人死亡
 func _on_enemy_died(value) -> void:
 	score += value
+
 
 func _ready() -> void:
 	spawn_all_enemies()

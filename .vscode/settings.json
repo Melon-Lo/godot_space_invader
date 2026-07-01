@@ -1,8 +1,10 @@
 {
-    "godotTools.editorPath.godot4": "d:\\melon\\Godot\\exe\\Godot_v4.6-stable_win64.exe",
-    "cSpell.words": [
-        "Cooldown",
-        "elif",
-        "onready"
-    ]
+	"git.path": "C:\\Program Files\\Git\\cmd\\git.exe",
+	"editor.formatOnSave": true,
+	"godotTools.editorPath.godot4": "d:\\melon\\Godot\\exe\\Godot_v4.6-stable_win64.exe",
+	"[gdscript]": {
+		"editor.defaultFormatter": "DoHe.godot-format",
+		"editor.formatOnSave": true
+	},
+	"cSpell.words": ["Cooldown", "elif", "onready"]
 }

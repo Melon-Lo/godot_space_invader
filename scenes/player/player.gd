@@ -12,10 +12,12 @@ extends Area2D
 var can_shoot: bool = true
 var ship_size = Vector2(16, 16)
 
+
 # 初始化
 func start() -> void:
 	position = Vector2(screen_size.x / 2, screen_size.y - 64) # 初始位置
 	gun_cooldown_timer.wait_time = cooldown
+
 
 # 射擊
 func shoot() -> void:
@@ -29,12 +31,15 @@ func shoot() -> void:
 	get_tree().get_root().add_child(bullet_scene_instance) # 加入場景
 	bullet_scene_instance.start(position + Vector2(0, -8)) # 設定子彈位置（使用子彈自己的 func）
 
+
 # 射擊冷卻計時器計時到期
 func _on_gun_cooldown_timer_timeout() -> void:
 	can_shoot = true
 
+
 func _ready() -> void:
 	start()
+
 
 func _process(delta: float) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
