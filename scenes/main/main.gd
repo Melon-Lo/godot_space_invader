@@ -7,7 +7,7 @@ var score = 0
 func spawn_all_enemies() -> void:
 	for x in range(9):
 		for y in range(3):
-			var enemy_scene_instance = enemy_scene.instantiate() 
+			var enemy_scene_instance = enemy_scene.instantiate()
 			var pos = Vector2(x * (16 + 8) + 24, 16 * 4 + y * 16)
 			add_child(enemy_scene_instance)
 			enemy_scene_instance.start(pos)
