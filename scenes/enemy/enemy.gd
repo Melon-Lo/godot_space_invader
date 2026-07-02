@@ -4,6 +4,7 @@ signal died
 
 var start_pos = Vector2.ZERO
 var speed = 0
+var bullet_scene = preload("res://scenes/enemy_bullet/enemy_bullet.tscn")
 
 @onready var screen_size = get_viewport_rect().size
 @onready var move_timer: Timer = $MoveTimer
@@ -66,7 +67,9 @@ func explode() -> void:
 
 # 射擊
 func shoot() -> void:
-	pass
+	var bullet_scene_instance = bullet_scene.instantiate()
+	get_tree().root.add_child(bullet_scene_instance)
+	bullet_scene_instance.start(position)
 
 
 # 射擊計時器計時到期
