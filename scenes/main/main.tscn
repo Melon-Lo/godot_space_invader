@@ -3,10 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://bhq2toy243xqb" path="res://scenes/background/background.tscn" id="1_iuonh"]
 [ext_resource type="Script" uid="uid://b2jtb1dgule1m" path="res://scenes/main/main.gd" id="1_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://c8asa5k06a2g1" path="res://scenes/player/player.tscn" id="2_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://cvjqjpxud421a" path="res://scenes/ui/ui.tscn" id="2_l3cfh"]
 
 [node name="Main" type="Node2D" unique_id=1926543772]
 script = ExtResource("1_k2fmo")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=33475536]
+
+[node name="UI" parent="CanvasLayer" unique_id=1852503813 instance=ExtResource("2_l3cfh")]
+
 [node name="Background" parent="." unique_id=1374005916 instance=ExtResource("1_iuonh")]
 
 [node name="Player" parent="." unique_id=1596260093 instance=ExtResource("2_k2fmo")]
+max_shield = 10
+
+[connection signal="shield_changed" from="Player" to="CanvasLayer/UI" method="update_shield"]
