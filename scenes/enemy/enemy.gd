@@ -14,9 +14,9 @@ var is_dying: bool = false
 
 
 func _process(delta: float) -> void:
-	position.y += speed * delta
+	position.y += speed * delta # 當 speed 大於 0 時，敵人的 Y 座標會持續增加（往下移動）
 	if position.y > screen_size.y + 32:
-		start(start_pos)
+		start(start_pos) # 如果超出螢幕下方，就重設回上方重新飛入
 
 
 # 初始化敵人
@@ -30,7 +30,7 @@ func start(pos: Vector2) -> void:
 # 重置敵人
 func reset_enemy(pos: Vector2) -> void:
 	speed = 0 # 將移動速度初始化為 0，避免在播放入場動畫時移動
-	position = Vector2(pos.x, pos.y) # # 將敵人的初始位置設定為傳入的 pos 座標
+	position = Vector2(pos.x, -50) # 將敵人的初始位置設定在螢幕上方外（例如 Y 座標為 -50）
 	start_pos = pos # 將目標位置記錄在 start_pos 變數中
 
 
@@ -83,7 +83,7 @@ func shoot() -> void:
 
 # 射擊計時器計時到期
 func _on_shoot_timer_timeout() -> void:
-	speed = randf_range(75, 100)
+	speed = randf_range(75, 100) # 給予敵人一個向下的隨機速度，此時 _process 開始讓敵人往下移動
 
 
 # 移動計時器計時到期
