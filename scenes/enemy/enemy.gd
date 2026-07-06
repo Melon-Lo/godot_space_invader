@@ -7,6 +7,12 @@ var speed = 0
 var bullet_scene = preload("res://scenes/enemy_bullet/enemy_bullet.tscn")
 var is_dying: bool = false
 
+# 同步左右移動的控制變數
+static var last_frame: int = -1
+static var time_passed: float = 0.0
+var max_horizontal_offset = 20.0 # 左右移動的最大偏移量
+var frequency = 2.0 # 左右擺動的頻率
+
 @onready var screen_size = get_viewport_rect().size
 @onready var move_timer: Timer = $MoveTimer
 @onready var shoot_timer: Timer = $ShootTimer
@@ -15,6 +21,17 @@ var is_dying: bool = false
 
 func _process(delta: float) -> void:
 	position.y += speed * delta # 當 speed 大於 0 時，敵人的 Y 座標會持續增加（往下移動）
+
+	# 確保在同一格（frame）中，全體敵人只會累加一次時間步長（解決交錯問題）
+	var frame = Engine.get_process_frames()
+	if frame != last_frame:
+		last_frame = frame
+		time_passed += delta
+
+	# 使用正弦波（sin）配合累加的時間計算出完美同步的偏移量
+	var offset_x = sin(time_passed * frequency) * max_horizontal_offset
+	position.x = start_pos.x + offset_x
+
 	if position.y > screen_size.y + 32:
 		start(start_pos) # 如果超出螢幕下方，就重設回上方重新飛入
 
@@ -83,11 +100,11 @@ func shoot() -> void:
 
 # 射擊計時器計時到期
 func _on_shoot_timer_timeout() -> void:
-	speed = randf_range(75, 100) # 給予敵人一個向下的隨機速度，此時 _process 開始讓敵人往下移動
+	shoot()
+	shoot_timer.wait_time = randf_range(4, 20)
+	shoot_timer.start()
 
 
 # 移動計時器計時到期
 func _on_move_timer_timeout() -> void:
-	shoot()
-	shoot_timer.wait_time = randf_range(4, 20)
-	shoot_timer.start()
+	speed = randf_range(75, 100) # 給予敵人一個向下的隨機速度，此時 _process 開始讓敵人往下移動

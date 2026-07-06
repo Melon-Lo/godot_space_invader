@@ -33,7 +33,6 @@ func _on_enemy_died(value) -> void:
 	total_enemies -= 1
 	score += value
 	$CanvasLayer/UI.update_score(score)
-	print(total_enemies)
 	if total_enemies <= 0:
 		get_tree().paused = true
 		start_button.show()
