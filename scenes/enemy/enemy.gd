@@ -5,6 +5,7 @@ signal died
 var start_pos = Vector2.ZERO
 var speed = 0
 var bullet_scene = preload("res://scenes/enemy_bullet/enemy_bullet.tscn")
+var is_dying: bool = false
 
 @onready var screen_size = get_viewport_rect().size
 @onready var move_timer: Timer = $MoveTimer
@@ -58,6 +59,14 @@ func spawn_enemy() -> void:
 
 # 爆炸
 func explode() -> void:
+	if is_dying:
+		return
+	is_dying = true
+
+	# 延遲關閉碰撞偵測，避免爆炸期間再次被子彈擊中
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
+
 	speed = 0
 	animation_player.play("explode")
 	await animation_player.animation_finished

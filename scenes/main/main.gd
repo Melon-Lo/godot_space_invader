@@ -19,7 +19,6 @@ func _ready() -> void:
 
 # 生成所有敵人
 func spawn_all_enemies() -> void:
-	total_enemies = row_enemies_count * column_enemies_count
 	for x in range(row_enemies_count):
 		for y in range(column_enemies_count):
 			var enemy_scene_instance = enemy_scene.instantiate()
@@ -31,9 +30,9 @@ func spawn_all_enemies() -> void:
 
 # 敵人死亡
 func _on_enemy_died(value) -> void:
+	total_enemies -= 1
 	score += value
 	$CanvasLayer/UI.update_score(score)
-	total_enemies -= 1
 	print(total_enemies)
 	if total_enemies <= 0:
 		get_tree().paused = true
@@ -49,6 +48,7 @@ func _on_start_button_pressed() -> void:
 # 新遊戲
 func new_game() -> void:
 	score = 0
+	total_enemies = row_enemies_count * column_enemies_count
 	$CanvasLayer/UI.update_score(score)
 	$Player.start()
 	spawn_all_enemies()
