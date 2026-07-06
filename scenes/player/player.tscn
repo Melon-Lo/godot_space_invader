@@ -77,6 +77,7 @@ bullet_scene = ExtResource("2_75vfm")
 [node name="Ship" type="Sprite2D" parent="." unique_id=1929287007]
 texture = ExtResource("1_dovo2")
 hframes = 3
+frame = 1
 
 [node name="Boosters" type="AnimatedSprite2D" parent="Ship" unique_id=1702844577]
 sprite_frames = SubResource("SpriteFrames_75vfm")

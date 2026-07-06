@@ -60,8 +60,8 @@ func spawn_enemy() -> void:
 func explode() -> void:
 	speed = 0
 	animation_player.play("explode")
-	died.emit(5)
 	await animation_player.animation_finished
+	died.emit(5) # 發出死亡訊號，將參數（分數）傳回
 	queue_free()
 
 

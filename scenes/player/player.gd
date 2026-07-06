@@ -46,6 +46,8 @@ func _process(delta: float) -> void:
 
 # 初始化
 func start() -> void:
+	show()
+	shield = max_shield
 	position = Vector2(screen_size.x / 2, screen_size.y - 64) # 初始位置
 	gun_cooldown_timer.wait_time = cooldown
 
