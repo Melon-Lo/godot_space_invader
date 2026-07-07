@@ -3,17 +3,28 @@
 [ext_resource type="Script" uid="uid://cbdsktv3r0wbn" path="res://scenes/ui/ui.gd" id="1_f5cxw"]
 [ext_resource type="FontFile" uid="uid://6yv0y6bfclb8" path="res://scenes/ui/ThaleahFat.ttf" id="1_u7n8c"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5cxw"]
-bg_color = Color(0.6, 0.90588236, 0.6, 1)
-skew = Vector2(0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aac20"]
-bg_color = Color(0.21896565, 0.709132, 0.33524993, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5kmx"]
+bg_color = Color(0.7294118, 0.99607843, 0.7607843, 0.3764706)
 skew = Vector2(0.6, 0)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(0.827451, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5cxw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red"]
+bg_color = Color(0.85, 0.15, 0.15, 1)
+skew = Vector2(0.6, 0)
+border_color = Color(0.6, 0.90588236, 0.6, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparent"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aac20"]
+bg_color = Color(0.21373367, 0.62345177, 0.3006837, 1)
+skew = Vector2(0.6, 0)
 border_color = Color(0.6, 0.90588236, 0.6, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_g5kmx"]
@@ -35,18 +46,59 @@ script = ExtResource("1_f5cxw")
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="ShieldBar" type="ProgressBar" parent="HBoxContainer" unique_id=793617909]
-custom_minimum_size = Vector2(160, 10)
+[node name="ShieldBar" type="Control" parent="HBoxContainer" unique_id=793617909]
+custom_minimum_size = Vector2(164, 14)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="Background" type="Panel" parent="HBoxContainer/ShieldBar" unique_id=123839526]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g5kmx")
+
+[node name="DamageBar" type="ProgressBar" parent="HBoxContainer/ShieldBar" unique_id=1234567]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = -2.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_f5cxw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_red")
+step = 0.1
+value = 100.0
+show_percentage = false
+
+[node name="ActualBar" type="ProgressBar" parent="HBoxContainer/ShieldBar" unique_id=1234568]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0121951215
+anchor_top = 0.35714287
+anchor_right = 0.9878049
+anchor_bottom = 0.71428573
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_transparent")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aac20")
 step = 1.0
 value = 100.0
 show_percentage = false
 
 [node name="ScoreLabel" type="Label" parent="HBoxContainer" unique_id=1980120879]
-custom_minimum_size = Vector2(50, 16)
+custom_minimum_size = Vector2(65, 16)
 layout_mode = 2
 text = "00000000"
 label_settings = SubResource("LabelSettings_g5kmx")

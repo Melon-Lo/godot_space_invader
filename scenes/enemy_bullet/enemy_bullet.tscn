@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwbw7ejyd7dr2" path="res://scenes/enemy_bullet/enemy_bullet.gd" id="1_5ifdi"]
 [ext_resource type="Texture2D" uid="uid://urlk45uspgak" path="res://scenes/enemy_bullet/Enemy_projectile (16 x 16).png" id="2_ix2yb"]
+[ext_resource type="Texture2D" uid="uid://c1ckhl3vwm570" path="res://scenes/enemy_bullet/Explosion (16 x 16).png" id="2_yj0vl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ix2yb"]
 atlas = ExtResource("2_ix2yb")
@@ -28,8 +29,100 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_kxe2m"]
 radius = 4.0
 
-[node name="EnemyBullet" type="Area2D" unique_id=2126209106]
+[sub_resource type="Animation" id="Animation_tonxl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_yj0vl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u5yx3"]
+resource_name = "explode"
+length = 0.16666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_yj0vl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.099999994, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iijo1"]
+_data = {
+&"RESET": SubResource("Animation_tonxl"),
+&"explode": SubResource("Animation_u5yx3")
+}
+
+[node name="EnemyBullet" type="Area2D" unique_id=2126209106 groups=["enemy_bullets"]]
+process_mode = 3
 script = ExtResource("1_5ifdi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=438006687]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yj0vl")
+hframes = 6
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1985474484]
 sprite_frames = SubResource("SpriteFrames_pg7lt")
@@ -40,6 +133,9 @@ frame_progress = 0.96251756
 shape = SubResource("CircleShape2D_kxe2m")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1730610103]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1545531737]
+libraries/ = SubResource("AnimationLibrary_iijo1")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

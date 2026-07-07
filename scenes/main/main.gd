@@ -2,19 +2,32 @@ extends Node2D
 
 @onready var start_button: TextureButton = $CanvasLayer/CenterContainer/StartButton
 @onready var game_over: TextureRect = $CanvasLayer/CenterContainer/GameOver
+@onready var win: Label = $CanvasLayer/CenterContainer/Win
+@onready var screen_transition: ColorRect = $CanvasLayer/ScreenTransition
+@onready var hint: Label = $CanvasLayer/Hint
+@export var row_enemies_count = 9
+@export var column_enemies_count = 3
 
 var enemy_scene = preload("res://scenes/enemy/enemy.tscn")
 var score = 0
-
-var row_enemies_count = 9
-var column_enemies_count = 3
 var total_enemies = 0
+
+var button_tween: Tween
+var hint_tween: Tween
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	start_button.pivot_offset = start_button.size / 2.0
 	start_button.show()
 	game_over.hide()
+	win.hide()
 	get_tree().paused = true
+
+	start_button.mouse_entered.connect(_on_start_button_mouse_entered)
+	start_button.mouse_exited.connect(_on_start_button_mouse_exited)
+
+	start_hint_blinking()
 
 
 # 生成所有敵人
@@ -35,17 +48,41 @@ func _on_enemy_died(value) -> void:
 	$CanvasLayer/UI.update_score(score)
 	if total_enemies <= 0:
 		get_tree().paused = true
+		win.show()
+		await get_tree().create_timer(3.0).timeout
+		win.hide()
 		start_button.show()
+		start_hint_blinking()
+
+
+# 按下空白鍵或 Enter 鍵
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("start_game") and start_button.visible:
+		new_game()
 
 
 # 點擊開始按鈕
 func _on_start_button_pressed() -> void:
-	start_button.hide()
 	new_game()
 
 
 # 新遊戲
 func new_game() -> void:
+	# 隱藏開始按鈕以防止多次點擊或觸發
+	start_button.hide()
+	start_button.scale = Vector2(1.0, 1.0)
+	stop_hint_blinking()
+
+	# 開始淡出至全黑
+	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(screen_transition, "color", Color(0, 0, 0, 1), 0.4)
+	await tween.finished
+
+	# 清空畫面
+	get_tree().call_group("enemies", "queue_free")
+	get_tree().call_group("enemy_bullets", "queue_free")
+
 	score = 0
 	total_enemies = row_enemies_count * column_enemies_count
 	$CanvasLayer/UI.update_score(score)
@@ -53,11 +90,82 @@ func new_game() -> void:
 	spawn_all_enemies()
 	get_tree().paused = false
 
+	# 稍微停留一小會兒
+	await get_tree().create_timer(0.2).timeout
 
+	# 開始淡入至透明
+	var tween_in = create_tween()
+	tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween_in.tween_property(screen_transition, "color", Color(0, 0, 0, 0), 0.4)
+	await tween_in.finished
+
+
+# 玩家死亡（遊戲結束）
 func _on_player_died() -> void:
 	get_tree().paused = true
-	get_tree().call_group("enemies", "queue_free")
 	game_over.show()
 	await get_tree().create_timer(2.0).timeout
 	game_over.hide()
 	start_button.show()
+	start_hint_blinking()
+
+
+# 滑鼠移入開始按鈕
+func _on_start_button_mouse_entered() -> void:
+	if button_tween and button_tween.is_valid():
+		button_tween.kill()
+	button_tween = create_tween()
+	button_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	button_tween.tween_property(
+		start_button,
+		"scale",
+		Vector2(1.15, 1.15),
+		0.15,
+	).set_trans(Tween.TRANS_SINE)
+
+
+# 滑鼠移出開始按鈕
+func _on_start_button_mouse_exited() -> void:
+	if button_tween and button_tween.is_valid():
+		button_tween.kill()
+	button_tween = create_tween()
+	button_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	button_tween.tween_property(
+		start_button,
+		"scale",
+		Vector2(1.0, 1.0),
+		0.15,
+	).set_trans(Tween.TRANS_SINE)
+
+
+# 開始閃爍提示
+func start_hint_blinking() -> void:
+	hint.show()
+	if hint_tween and hint_tween.is_valid():
+		hint_tween.kill()
+
+	hint.modulate.a = 1.0
+
+	hint_tween = create_tween().set_loops()
+	hint_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+
+	hint_tween.tween_property(
+		hint,
+		"modulate:a",
+		0.2,
+		0.6,
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+	hint_tween.tween_property(
+		hint,
+		"modulate:a",
+		1.0,
+		0.6,
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+
+# 停止閃爍提示
+func stop_hint_blinking() -> void:
+	if hint_tween and hint_tween.is_valid():
+		hint_tween.kill()
+	hint.hide()

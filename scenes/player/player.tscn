@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://e3rcsyhmy0qd" path="res://scenes/player/ship_sprite/Boosters (16 x 16).png" id="2_gmlin"]
 [ext_resource type="Texture2D" uid="uid://vune4t5hq0xv" path="res://scenes/player/ship_sprite/Boosters_left (16 x 16).png" id="4_p47bc"]
 [ext_resource type="Texture2D" uid="uid://da4lb8bon6wiy" path="res://scenes/player/ship_sprite/Boosters_right (16 x 16).png" id="5_75vfm"]
+[ext_resource type="Texture2D" uid="uid://bhy1ev34j0l0n" path="res://scenes/player/Explosion (16 x 16).png" id="6_explosion"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
 atlas = ExtResource("2_gmlin")
@@ -70,6 +71,103 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvxji"]
 size = Vector2(12, 21)
 
+[sub_resource type="Animation" id="Animation_RESET"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ship:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dovo2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ship:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ship/Boosters:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_explode"]
+resource_name = "explode"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ship:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_explosion")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ship:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ship:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06666666, 0.13333334, 0.2, 0.26666668, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ship/Boosters:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_player"]
+_data = {
+&"RESET": SubResource("Animation_RESET"),
+&"explode": SubResource("Animation_explode")
+}
+
 [node name="Player" type="Area2D" unique_id=1596260093]
 script = ExtResource("1_gmlin")
 bullet_scene = ExtResource("2_75vfm")
@@ -77,11 +175,10 @@ bullet_scene = ExtResource("2_75vfm")
 [node name="Ship" type="Sprite2D" parent="." unique_id=1929287007]
 texture = ExtResource("1_dovo2")
 hframes = 3
-frame = 1
 
 [node name="Boosters" type="AnimatedSprite2D" parent="Ship" unique_id=1702844577]
 sprite_frames = SubResource("SpriteFrames_75vfm")
-animation = &"right"
+animation = &"forward"
 autoplay = "forward"
 offset = Vector2(0, 15)
 
@@ -91,6 +188,9 @@ shape = SubResource("RectangleShape2D_lvxji")
 
 [node name="GunCooldownTimer" type="Timer" parent="." unique_id=1243221412]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1243221413]
+libraries/ = SubResource("AnimationLibrary_player")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="GunCooldownTimer" to="." method="_on_gun_cooldown_timer_timeout"]
