@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bhq2toy243xqb"]
 
-[ext_resource type="Texture2D" uid="uid://u6oyb3bv8sb7" path="res://scenes/background/Space_BG (2 frames) (64 x 64).png" id="1_iheb5"]
+[ext_resource type="Texture2D" uid="uid://u6oyb3bv8sb7" path="res://assets/images/background/space_2frames_64x64.png" id="1_iheb5"]
 
 [sub_resource type="Animation" id="Animation_pesyb"]
 length = 0.001

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu74qpyj0kgm8"
-path="res://.godot/imported/GAME_OVER (72 x 8).png-a8cbb8cf3495a0fa0fb4886c2d79732c.ctex"
+uid="uid://xcgek5r8ef4b"
+path="res://.godot/imported/sparkle_16x16.png-139da7f0e549b2c85a918778bb98085c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/GAME_OVER (72 x 8).png"
-dest_files=["res://.godot/imported/GAME_OVER (72 x 8).png-a8cbb8cf3495a0fa0fb4886c2d79732c.ctex"]
+source_file="res://assets/images/effects/sparkle_16x16.png"
+dest_files=["res://.godot/imported/sparkle_16x16.png-139da7f0e549b2c85a918778bb98085c.ctex"]
 
 [params]
 

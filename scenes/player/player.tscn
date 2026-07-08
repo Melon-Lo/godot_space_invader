@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://c8asa5k06a2g1"]
 
-[ext_resource type="Texture2D" uid="uid://txyujs53uppq" path="res://scenes/player/ship_sprite/Player_ship (16 x 16).png" id="1_dovo2"]
+[ext_resource type="Texture2D" uid="uid://txyujs53uppq" path="res://assets/images/player/ship_16x16.png" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://kj5ku3n3fd43" path="res://scenes/player/player.gd" id="1_gmlin"]
 [ext_resource type="PackedScene" uid="uid://igjoy3dcw3la" path="res://scenes/bullet/bullet.tscn" id="2_75vfm"]
-[ext_resource type="Texture2D" uid="uid://e3rcsyhmy0qd" path="res://scenes/player/ship_sprite/Boosters (16 x 16).png" id="2_gmlin"]
-[ext_resource type="Texture2D" uid="uid://vune4t5hq0xv" path="res://scenes/player/ship_sprite/Boosters_left (16 x 16).png" id="4_p47bc"]
-[ext_resource type="Texture2D" uid="uid://da4lb8bon6wiy" path="res://scenes/player/ship_sprite/Boosters_right (16 x 16).png" id="5_75vfm"]
-[ext_resource type="Texture2D" uid="uid://bhy1ev34j0l0n" path="res://scenes/player/Explosion (16 x 16).png" id="6_explosion"]
+[ext_resource type="Texture2D" uid="uid://e3rcsyhmy0qd" path="res://assets/images/player/boosters_16x16.png" id="2_gmlin"]
+[ext_resource type="Texture2D" uid="uid://vune4t5hq0xv" path="res://assets/images/player/boosters_left_16x16.png" id="4_p47bc"]
+[ext_resource type="Texture2D" uid="uid://da4lb8bon6wiy" path="res://assets/images/player/boosters_right_16x16.png" id="5_75vfm"]
+[ext_resource type="Texture2D" uid="uid://dsytxbvu283xh" path="res://assets/images/effects/explosion_16x16.png" id="6_explosion"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
 atlas = ExtResource("2_gmlin")

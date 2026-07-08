@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://urlk45uspgak"
-path="res://.godot/imported/Enemy_projectile (16 x 16).png-80c7063732a814addc6d9cf00ac2466a.ctex"
+uid="uid://dsytxbvu283xh"
+path="res://.godot/imported/explosion_16x16.png-941cd9e9827a8a74260a56abad74212a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/enemy_bullet/Enemy_projectile (16 x 16).png"
-dest_files=["res://.godot/imported/Enemy_projectile (16 x 16).png-80c7063732a814addc6d9cf00ac2466a.ctex"]
+source_file="res://assets/images/effects/explosion_16x16.png"
+dest_files=["res://.godot/imported/explosion_16x16.png-941cd9e9827a8a74260a56abad74212a.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b1li07y3tesyh"]
 
 [ext_resource type="Script" uid="uid://cwbw7ejyd7dr2" path="res://scenes/enemy_bullet/enemy_bullet.gd" id="1_5ifdi"]
-[ext_resource type="Texture2D" uid="uid://urlk45uspgak" path="res://scenes/enemy_bullet/Enemy_projectile (16 x 16).png" id="2_ix2yb"]
-[ext_resource type="Texture2D" uid="uid://c1ckhl3vwm570" path="res://scenes/enemy_bullet/Explosion (16 x 16).png" id="2_yj0vl"]
+[ext_resource type="Texture2D" uid="uid://urlk45uspgak" path="res://assets/images/objects/enemy_bullet_16x16.png" id="2_ix2yb"]
+[ext_resource type="Texture2D" uid="uid://dsytxbvu283xh" path="res://assets/images/effects/explosion_16x16.png" id="2_yj0vl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ix2yb"]
 atlas = ExtResource("2_ix2yb")
@@ -115,7 +115,6 @@ _data = {
 }
 
 [node name="EnemyBullet" type="Area2D" unique_id=2126209106 groups=["enemy_bullets"]]
-process_mode = 3
 script = ExtResource("1_5ifdi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=438006687]

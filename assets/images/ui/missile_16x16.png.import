@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgg46c2r0ngld"
-path="res://.godot/imported/START (48 x 8).png-0252aa124de1288feaef67993f46ed95.ctex"
+uid="uid://wibxk0aeqnxj"
+path="res://.godot/imported/missile_16x16.png-8699ab282814c863510f3a68157da691.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/START (48 x 8).png"
-dest_files=["res://.godot/imported/START (48 x 8).png-0252aa124de1288feaef67993f46ed95.ctex"]
+source_file="res://assets/images/ui/missile_16x16.png"
+dest_files=["res://.godot/imported/missile_16x16.png-8699ab282814c863510f3a68157da691.ctex"]
 
 [params]
 

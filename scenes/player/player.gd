@@ -65,9 +65,6 @@ func start() -> void:
 
 # 射擊
 func shoot() -> void:
-	if get_tree().paused:
-		return
-
 	if not can_shoot:
 		return
 

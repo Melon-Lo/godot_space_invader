@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhy1ev34j0l0n"
-path="res://.godot/imported/Explosion (16 x 16).png-f08c26263b4e2884d8446ad17dc7936e.ctex"
+uid="uid://vune4t5hq0xv"
+path="res://.godot/imported/boosters_left_16x16.png-ea9670d95ccf04bed8f36b8c5fcd1bac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/Explosion (16 x 16).png"
-dest_files=["res://.godot/imported/Explosion (16 x 16).png-f08c26263b4e2884d8446ad17dc7936e.ctex"]
+source_file="res://assets/images/player/boosters_left_16x16.png"
+dest_files=["res://.godot/imported/boosters_left_16x16.png-ea9670d95ccf04bed8f36b8c5fcd1bac.ctex"]
 
 [params]
 

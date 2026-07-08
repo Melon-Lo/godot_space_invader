@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bnkboh6l3vphe"]
 
-[ext_resource type="Texture2D" uid="uid://dykaf2dkp35dc" path="res://scenes/enemy/Bon_Bon (16 x 16).png" id="1_4a83h"]
+[ext_resource type="Texture2D" uid="uid://dykaf2dkp35dc" path="res://assets/images/enemy/bon_bon_16x16.png" id="1_4a83h"]
 [ext_resource type="Script" uid="uid://b4386xd0apkir" path="res://scenes/enemy/enemy.gd" id="1_a3pup"]
-[ext_resource type="Texture2D" uid="uid://b8oyde8o4jxmv" path="res://scenes/enemy/Explosion (16 x 16).png" id="2_40wdo"]
+[ext_resource type="Texture2D" uid="uid://dsytxbvu283xh" path="res://assets/images/effects/explosion_16x16.png" id="2_40wdo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4a83h"]
 size = Vector2(16, 10)

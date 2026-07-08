@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var ui = $CanvasLayer/UI
 @onready var start_button: TextureButton = $CanvasLayer/CenterContainer/StartButton
 @onready var game_over: TextureRect = $CanvasLayer/CenterContainer/GameOver
 @onready var win: Label = $CanvasLayer/CenterContainer/Win
@@ -11,18 +12,18 @@ extends Node2D
 var enemy_scene = preload("res://scenes/enemy/enemy.tscn")
 var score = 0
 var total_enemies = 0
+var energy = 0
 
 var button_tween: Tween
 var hint_tween: Tween
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	start_button.pivot_offset = start_button.size / 2.0
 	start_button.show()
 	game_over.hide()
 	win.hide()
-	get_tree().paused = true
+	ui.hide()
 
 	start_button.mouse_entered.connect(_on_start_button_mouse_entered)
 	start_button.mouse_exited.connect(_on_start_button_mouse_exited)
@@ -45,9 +46,12 @@ func spawn_all_enemies() -> void:
 func _on_enemy_died(value) -> void:
 	total_enemies -= 1
 	score += value
+	energy += 5
 	$CanvasLayer/UI.update_score(score)
+	$CanvasLayer/UI.update_energy(energy)
+
 	if total_enemies <= 0:
-		get_tree().paused = true
+		get_tree().call_group("enemy_bullets", "queue_free")
 		win.show()
 		await get_tree().create_timer(3.0).timeout
 		win.hide()
@@ -75,34 +79,35 @@ func new_game() -> void:
 
 	# 開始淡出至全黑
 	var tween = create_tween()
-	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(screen_transition, "color", Color(0, 0, 0, 1), 0.4)
 	await tween.finished
 
 	# 清空畫面
 	get_tree().call_group("enemies", "queue_free")
 	get_tree().call_group("enemy_bullets", "queue_free")
+	get_tree().call_group("bullets", "queue_free")
 
-	score = 0
+	ui.show()
 	total_enemies = row_enemies_count * column_enemies_count
-	$CanvasLayer/UI.update_score(score)
+	$CanvasLayer/UI.update_score(0)
+	$CanvasLayer/UI.update_energy(0)
 	$Player.start()
 	spawn_all_enemies()
-	get_tree().paused = false
 
 	# 稍微停留一小會兒
 	await get_tree().create_timer(0.2).timeout
 
 	# 開始淡入至透明
 	var tween_in = create_tween()
-	tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween_in.tween_property(screen_transition, "color", Color(0, 0, 0, 0), 0.4)
 	await tween_in.finished
 
 
 # 玩家死亡（遊戲結束）
 func _on_player_died() -> void:
-	get_tree().paused = true
+	get_tree().call_group("enemies", "set_process_mode", Node.PROCESS_MODE_DISABLED)
+	get_tree().call_group("enemy_bullets", "set_process_mode", Node.PROCESS_MODE_DISABLED)
+	get_tree().call_group("bullets", "set_process_mode", Node.PROCESS_MODE_DISABLED)
 	game_over.show()
 	await get_tree().create_timer(2.0).timeout
 	game_over.hide()
@@ -115,7 +120,6 @@ func _on_start_button_mouse_entered() -> void:
 	if button_tween and button_tween.is_valid():
 		button_tween.kill()
 	button_tween = create_tween()
-	button_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	button_tween.tween_property(
 		start_button,
 		"scale",
@@ -129,7 +133,6 @@ func _on_start_button_mouse_exited() -> void:
 	if button_tween and button_tween.is_valid():
 		button_tween.kill()
 	button_tween = create_tween()
-	button_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	button_tween.tween_property(
 		start_button,
 		"scale",
@@ -147,7 +150,6 @@ func start_hint_blinking() -> void:
 	hint.modulate.a = 1.0
 
 	hint_tween = create_tween().set_loops()
-	hint_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 
 	hint_tween.tween_property(
 		hint,

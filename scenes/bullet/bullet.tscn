@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://igjoy3dcw3la"]
 
-[ext_resource type="Texture2D" uid="uid://b0a8spown6f6a" path="res://scenes/bullet/Player_beam (16 x 16).png" id="1_7c8un"]
+[ext_resource type="Texture2D" uid="uid://b0a8spown6f6a" path="res://assets/images/objects/player_beam_16x16.png" id="1_7c8un"]
 [ext_resource type="Script" uid="uid://d2yy4xvhemf5k" path="res://scenes/bullet/bullet.gd" id="1_83itf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83itf"]

@@ -3,6 +3,10 @@ extends Area2D
 @export var speed: float = -250.0
 
 
+func _ready() -> void:
+	add_to_group("bullets")
+
+
 # 初始化
 func start(pos: Vector2) -> void:
 	position = pos

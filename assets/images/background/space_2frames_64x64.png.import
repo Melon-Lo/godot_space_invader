@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dykaf2dkp35dc"
-path="res://.godot/imported/Bon_Bon (16 x 16).png-364075206e5af16a7a688858e05921c4.ctex"
+uid="uid://u6oyb3bv8sb7"
+path="res://.godot/imported/space_2frames_64x64.png-d8418d3fff0825c159c6ed2add2f6c64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/enemy/Bon_Bon (16 x 16).png"
-dest_files=["res://.godot/imported/Bon_Bon (16 x 16).png-364075206e5af16a7a688858e05921c4.ctex"]
+source_file="res://assets/images/background/space_2frames_64x64.png"
+dest_files=["res://.godot/imported/space_2frames_64x64.png-d8418d3fff0825c159c6ed2add2f6c64.ctex"]
 
 [params]
 
