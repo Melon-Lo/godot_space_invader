@@ -10,6 +10,8 @@ extends Node2D
 @export var column_enemies_count = 3
 
 var enemy_scene = preload("res://scenes/enemy/enemy.tscn")
+var sparkle_scene = preload("res://scenes/sparkle/sparkle.tscn")
+var warning_scene = preload("res://scenes/ui/warning.tscn")
 var score = 0
 var total_enemies = 0
 var energy = 0
@@ -46,7 +48,7 @@ func spawn_all_enemies() -> void:
 func _on_enemy_died(value) -> void:
 	total_enemies -= 1
 	score += value
-	energy += 5
+	energy = min(energy + 5, 100)
 	$CanvasLayer/UI.update_score(score)
 	$CanvasLayer/UI.update_energy(energy)
 
@@ -59,10 +61,25 @@ func _on_enemy_died(value) -> void:
 		start_hint_blinking()
 
 
-# 按下空白鍵或 Enter 鍵
+# 按下空白鍵或 Enter 鍵 / 放大招鍵
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("start_game") and start_button.visible:
 		new_game()
+
+	if event.is_action_pressed("use_ultimate"):
+		if $Player.is_dying or start_button.visible:
+			return
+		if energy >= 33:
+			use_ultimate()
+		else:
+			show_warning("Energy is not enough!")
+
+
+# 顯示警告提示訊息
+func show_warning(text: String) -> void:
+	var warning_instance = warning_scene.instantiate()
+	$CanvasLayer.add_child(warning_instance)
+	warning_instance.start(text)
 
 
 # 點擊開始按鈕
@@ -88,9 +105,11 @@ func new_game() -> void:
 	get_tree().call_group("bullets", "queue_free")
 
 	ui.show()
+	score = 0
+	energy = 0
 	total_enemies = row_enemies_count * column_enemies_count
-	$CanvasLayer/UI.update_score(0)
-	$CanvasLayer/UI.update_energy(0)
+	$CanvasLayer/UI.update_score(score)
+	$CanvasLayer/UI.update_energy(energy)
 	$Player.start()
 	spawn_all_enemies()
 
@@ -103,11 +122,20 @@ func new_game() -> void:
 	await tween_in.finished
 
 
+# 放大招
+func use_ultimate() -> void:
+	energy -= 33
+	$CanvasLayer/UI.update_energy(energy)
+
+	var sparkle_instance = sparkle_scene.instantiate()
+	# 從畫面最下方（螢幕高度）發射，X 軸對齊玩家位置
+	var spawn_pos = Vector2($Player.position.x, get_viewport_rect().size.y)
+	add_child(sparkle_instance)
+	sparkle_instance.position = spawn_pos
+
+
 # 玩家死亡（遊戲結束）
 func _on_player_died() -> void:
-	get_tree().call_group("enemies", "set_process_mode", Node.PROCESS_MODE_DISABLED)
-	get_tree().call_group("enemy_bullets", "set_process_mode", Node.PROCESS_MODE_DISABLED)
-	get_tree().call_group("bullets", "set_process_mode", Node.PROCESS_MODE_DISABLED)
 	game_over.show()
 	await get_tree().create_timer(2.0).timeout
 	game_over.hide()

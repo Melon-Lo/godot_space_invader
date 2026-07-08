@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dg8w14a2x3c1d"]
+
+[ext_resource type="FontFile" uid="uid://6yv0y6bfclb8" path="res://fonts/ThaleahFat.ttf" id="1_font"]
+[ext_resource type="Script" uid="uid://qf7bww462ob5" path="res://scenes/ui/warning.gd" id="2_script"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_warning"]
+font = ExtResource("1_font")
+font_size = 14
+font_color = Color(1, 0.301961, 0.301961, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Warning" type="Label" unique_id=231551427]
+offset_top = 265.0
+offset_right = 240.0
+offset_bottom = 285.0
+theme_override_font_sizes/font_size = 14
+text = "Warning Content"
+label_settings = SubResource("LabelSettings_warning")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_script")

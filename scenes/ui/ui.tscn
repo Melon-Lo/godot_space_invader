@@ -33,7 +33,7 @@ bg_color = Color(0.78431374, 0.84705883, 0.95686275, 0.3529412)
 skew = Vector2(0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfayw"]
-bg_color = Color(0.17711973, 0.4703458, 0.6827339, 1)
+bg_color = Color(0.5143523, 0.75327945, 0.9469611, 1)
 skew = Vector2(0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_divider"]
