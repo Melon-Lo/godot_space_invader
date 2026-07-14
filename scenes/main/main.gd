@@ -6,8 +6,13 @@ extends Node2D
 @onready var win: Label = $CanvasLayer/CenterContainer/Win
 @onready var screen_transition: ColorRect = $CanvasLayer/ScreenTransition
 @onready var hint: Label = $CanvasLayer/Hint
+@onready var mobile_controls = $CanvasLayer/MobileControls
+
 @export var row_enemies_count = 9
 @export var column_enemies_count = 3
+
+enum MobileMode { AUTO, FORCE_ON, FORCE_OFF }
+@export var mobile_controls_mode: MobileMode = MobileMode.AUTO
 
 var enemy_scene = preload("res://scenes/enemy/enemy.tscn")
 var sparkle_scene = preload("res://scenes/sparkle/sparkle.tscn")
@@ -15,22 +20,28 @@ var warning_scene = preload("res://scenes/ui/warning.tscn")
 var score = 0
 var total_enemies = 0
 var energy = 0
+var game_state = "menu"
 
 var button_tween: Tween
 var hint_tween: Tween
 
 
 func _ready() -> void:
+	game_state = "menu"
 	start_button.pivot_offset = start_button.size / 2.0
 	start_button.show()
 	game_over.hide()
 	win.hide()
 	ui.hide()
+	mobile_controls.hide()
 
 	start_button.mouse_entered.connect(_on_start_button_mouse_entered)
 	start_button.mouse_exited.connect(_on_start_button_mouse_exited)
 
-	start_hint_blinking()
+	if _is_mobile():
+		hint.hide()
+	else:
+		start_hint_blinking()
 
 
 # 生成所有敵人
@@ -46,19 +57,30 @@ func spawn_all_enemies() -> void:
 
 # 敵人死亡
 func _on_enemy_died(value) -> void:
+	if game_state != "playing":
+		return
 	total_enemies -= 1
 	score += value
 	energy = min(energy + 5, 100)
 	$CanvasLayer/UI.update_score(score)
 	$CanvasLayer/UI.update_energy(energy)
+	mobile_controls.update_energy(energy)
 
 	if total_enemies <= 0:
+		game_state = "won"
 		get_tree().call_group("enemy_bullets", "queue_free")
 		win.show()
 		await get_tree().create_timer(3.0).timeout
 		win.hide()
 		start_button.show()
-		start_hint_blinking()
+
+		if _is_mobile():
+			hint.hide()
+		else:
+			hint.show()
+			start_hint_blinking()
+
+		game_state = "menu"
 
 
 # 按下空白鍵或 Enter 鍵 / 放大招鍵
@@ -89,6 +111,7 @@ func _on_start_button_pressed() -> void:
 
 # 新遊戲
 func new_game() -> void:
+	game_state = "playing"
 	# 隱藏開始按鈕以防止多次點擊或觸發
 	start_button.hide()
 	start_button.scale = Vector2(1.0, 1.0)
@@ -105,11 +128,14 @@ func new_game() -> void:
 	get_tree().call_group("bullets", "queue_free")
 
 	ui.show()
+	if _is_mobile():
+		mobile_controls.show()
 	score = 0
 	energy = 0
 	total_enemies = row_enemies_count * column_enemies_count
 	$CanvasLayer/UI.update_score(score)
 	$CanvasLayer/UI.update_energy(energy)
+	mobile_controls.update_energy(energy)
 	$Player.start()
 	spawn_all_enemies()
 
@@ -126,6 +152,7 @@ func new_game() -> void:
 func use_ultimate() -> void:
 	energy -= 33
 	$CanvasLayer/UI.update_energy(energy)
+	mobile_controls.update_energy(energy)
 
 	var sparkle_instance = sparkle_scene.instantiate()
 	# 從畫面最下方（螢幕高度）發射，X 軸對齊玩家位置
@@ -136,11 +163,21 @@ func use_ultimate() -> void:
 
 # 玩家死亡（遊戲結束）
 func _on_player_died() -> void:
+	if game_state != "playing":
+		return
+	game_state = "lost"
 	game_over.show()
 	await get_tree().create_timer(2.0).timeout
 	game_over.hide()
 	start_button.show()
-	start_hint_blinking()
+
+	if _is_mobile():
+		hint.hide()
+	else:
+		hint.show()
+		start_hint_blinking()
+
+	game_state = "menu"
 
 
 # 滑鼠移入開始按鈕
@@ -199,3 +236,16 @@ func stop_hint_blinking() -> void:
 	if hint_tween and hint_tween.is_valid():
 		hint_tween.kill()
 	hint.hide()
+
+
+# 判斷是否顯示行動裝置控制項
+func _is_mobile() -> bool:
+	match mobile_controls_mode:
+		MobileMode.FORCE_ON:
+			return true
+		MobileMode.FORCE_OFF:
+			return false
+		_:
+			var is_native_mobile = OS.has_feature("mobile")
+			var is_web_mobile = OS.has_feature("web_android") or OS.has_feature("web_ios")
+			return is_native_mobile or is_web_mobile

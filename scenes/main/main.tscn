@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cvjqjpxud421a" path="res://scenes/ui/ui.tscn" id="2_l3cfh"]
 [ext_resource type="Texture2D" uid="uid://cgg46c2r0ngld" path="res://assets/images/ui/start_48x8.png" id="3_6q06x"]
 [ext_resource type="Texture2D" uid="uid://cu74qpyj0kgm8" path="res://assets/images/ui/game_over_72x8.png" id="4_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://doldx0fd7ovti" path="res://scenes/mobile_controls/mobile_controls.tscn" id="4_yyfjg"]
 [ext_resource type="FontFile" uid="uid://6yv0y6bfclb8" path="res://fonts/ThaleahFat.ttf" id="5_hujxm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yyfjg"]
@@ -17,37 +18,6 @@ shadow_color = Color(0.8666667, 0.59607846, 0.12156863, 1)
 script = ExtResource("1_k2fmo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=33475536]
-
-[node name="UI" parent="CanvasLayer" unique_id=1852503813 instance=ExtResource("2_l3cfh")]
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=731025881]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="StartButton" type="TextureButton" parent="CanvasLayer/CenterContainer" unique_id=1336730863]
-layout_mode = 2
-texture_normal = ExtResource("3_6q06x")
-
-[node name="GameOver" type="TextureRect" parent="CanvasLayer/CenterContainer" unique_id=61671497]
-layout_mode = 2
-texture = ExtResource("4_ow5a4")
-
-[node name="Win" type="Label" parent="CanvasLayer/CenterContainer" unique_id=222864762]
-layout_mode = 2
-text = "YOU WIN!"
-label_settings = SubResource("LabelSettings_yyfjg")
-
-[node name="ScreenTransition" type="ColorRect" parent="CanvasLayer" unique_id=1852503814]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
 
 [node name="Hint" type="Label" parent="CanvasLayer" unique_id=827524444]
 anchors_preset = 8
@@ -65,6 +35,69 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_hujxm")
 theme_override_font_sizes/font_size = 14
 text = "press enter to start"
+
+[node name="Hint" type="Label" parent="CanvasLayer/Hint" unique_id=1491367309]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 7.0
+offset_right = 65.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = -2
+theme_override_fonts/font = ExtResource("5_hujxm")
+theme_override_font_sizes/font_size = 10
+text = "space - shoot
+z - ultimate"
+horizontal_alignment = 1
+
+[node name="UI" parent="CanvasLayer" unique_id=1852503813 instance=ExtResource("2_l3cfh")]
+
+[node name="MobileControls" parent="CanvasLayer" unique_id=1183788577 instance=ExtResource("4_yyfjg")]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=731025881]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -7.5
+offset_right = 36.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="TextureRect" parent="CanvasLayer/CenterContainer" unique_id=61671497]
+layout_mode = 2
+texture = ExtResource("4_ow5a4")
+
+[node name="Win" type="Label" parent="CanvasLayer/CenterContainer" unique_id=222864762]
+layout_mode = 2
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_yyfjg")
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer/CenterContainer" unique_id=1336730863]
+custom_minimum_size = Vector2(96, 16)
+layout_mode = 2
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("3_6q06x")
+
+[node name="ScreenTransition" type="ColorRect" parent="CanvasLayer" unique_id=1852503814]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
 [node name="Background" parent="." unique_id=1374005916 instance=ExtResource("1_iuonh")]
 

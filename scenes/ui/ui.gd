@@ -1,13 +1,13 @@
 extends MarginContainer
 
-@onready var score_label: Label = $ScoreLabel
-@onready var damage_bar: ProgressBar = $VBoxContainer/HBoxContainer/ShieldBar/Background/DamageBar
-@onready var actual_bar: ProgressBar = $VBoxContainer/HBoxContainer/ShieldBar/Background/ActualBar
-@onready var energy_bar: ProgressBar = $VBoxContainer/HBoxContainer2/EnergyBar/Background/ActualBar
+@onready var score_label: Label = %ScoreLabel
+@onready var damage_bar: ProgressBar = %VBoxContainer/HBoxContainer/ShieldBar/Background/DamageBar
+@onready var actual_bar: ProgressBar = %VBoxContainer/HBoxContainer/ShieldBar/Background/ActualBar
+@onready var energy_bar: ProgressBar = %VBoxContainer/HBoxContainer2/EnergyBar/Background/ActualBar
 @onready var energy_icons = [
-	$VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon1/Sprite,
-	$VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon2/Sprite,
-	$VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon3/Sprite,
+	%VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon1/Sprite,
+	%VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon2/Sprite,
+	%VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon3/Sprite,
 ]
 
 var damage_tween: Tween

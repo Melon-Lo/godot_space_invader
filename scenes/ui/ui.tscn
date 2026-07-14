@@ -74,30 +74,38 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_f5cxw")
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=1980120879]
+[node name="TopHBox" type="HBoxContainer" parent="." unique_id=1944399514]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="TopHBox" unique_id=1980120879]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
 text = "00000000"
 label_settings = SubResource("LabelSettings_g5kmx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2036679853]
+[node name="VBoxContainer" type="VBoxContainer" parent="TopHBox" unique_id=2036679853]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1133191246]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopHBox/VBoxContainer" unique_id=1133191246]
 layout_mode = 2
 
-[node name="ShieldBar" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=793617909]
+[node name="ShieldBar" type="Control" parent="TopHBox/VBoxContainer/HBoxContainer" unique_id=793617909]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 7.0
 
-[node name="Background" type="Panel" parent="VBoxContainer/HBoxContainer/ShieldBar" unique_id=123839526]
+[node name="Background" type="Panel" parent="TopHBox/VBoxContainer/HBoxContainer/ShieldBar" unique_id=123839526]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,7 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g5kmx")
 
-[node name="DamageBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/ShieldBar/Background" unique_id=1234567]
+[node name="DamageBar" type="ProgressBar" parent="TopHBox/VBoxContainer/HBoxContainer/ShieldBar/Background" unique_id=1234567]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,7 +135,7 @@ step = 0.1
 value = 100.0
 show_percentage = false
 
-[node name="ActualBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/ShieldBar/Background" unique_id=1234568]
+[node name="ActualBar" type="ProgressBar" parent="TopHBox/VBoxContainer/HBoxContainer/ShieldBar/Background" unique_id=1234568]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,16 +152,17 @@ step = 1.0
 value = 100.0
 show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=949510086]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TopHBox/VBoxContainer" unique_id=949510086]
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="EnergyBar" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=213112291]
+[node name="EnergyBar" type="Control" parent="TopHBox/VBoxContainer/HBoxContainer2" unique_id=213112291]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 7.0
+size_flags_stretch_ratio = 4.45
 
-[node name="Background" type="Panel" parent="VBoxContainer/HBoxContainer2/EnergyBar" unique_id=1839490629]
+[node name="Background" type="Panel" parent="TopHBox/VBoxContainer/HBoxContainer2/EnergyBar" unique_id=1839490629]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,9 +173,10 @@ offset_right = 28.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.8, 1)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0dwhk")
 
-[node name="ActualBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=448845350]
+[node name="ActualBar" type="ProgressBar" parent="TopHBox/VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=448845350]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,7 +192,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pfayw")
 step = 1.0
 show_percentage = false
 
-[node name="Divider1" type="Panel" parent="VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=149670806]
+[node name="Divider1" type="Panel" parent="TopHBox/VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=149670806]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.33
@@ -194,7 +204,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_divider")
 
-[node name="Divider2" type="Panel" parent="VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=160866117]
+[node name="Divider2" type="Panel" parent="TopHBox/VBoxContainer/HBoxContainer2/EnergyBar/Background" unique_id=160866117]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.66
@@ -206,41 +216,41 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_divider")
 
-[node name="IconHBox" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2" unique_id=556028970]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-size_flags_stretch_ratio = 3.0
-theme_override_constants/separation = 0
-
-[node name="EnergyIcon1" type="Control" parent="VBoxContainer/HBoxContainer2/IconHBox" unique_id=961572568]
+[node name="IconHBox" type="HBoxContainer" parent="TopHBox/VBoxContainer/HBoxContainer2" unique_id=556028970]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_stretch_ratio = 1.16
+theme_override_constants/separation = 0
 
-[node name="Sprite" type="AnimatedSprite2D" parent="VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon1" unique_id=321748879]
-position = Vector2(24, 0)
+[node name="EnergyIcon1" type="Control" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox" unique_id=961572568]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sprite" type="AnimatedSprite2D" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon1" unique_id=321748879]
+position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_pfayw")
 autoplay = "default"
 
-[node name="EnergyIcon2" type="Control" parent="VBoxContainer/HBoxContainer2/IconHBox" unique_id=885594020]
+[node name="EnergyIcon2" type="Control" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox" unique_id=885594020]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 
-[node name="Sprite" type="AnimatedSprite2D" parent="VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon2" unique_id=376215948]
-position = Vector2(12, 0)
+[node name="Sprite" type="AnimatedSprite2D" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon2" unique_id=376215948]
 sprite_frames = SubResource("SpriteFrames_pfayw")
 autoplay = "default"
 frame_progress = 0.42321652
+offset = Vector2(0, 5)
 
-[node name="EnergyIcon3" type="Control" parent="VBoxContainer/HBoxContainer2/IconHBox" unique_id=443182855]
+[node name="EnergyIcon3" type="Control" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox" unique_id=443182855]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 
-[node name="Sprite" type="AnimatedSprite2D" parent="VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon3" unique_id=646488343]
+[node name="Sprite" type="AnimatedSprite2D" parent="TopHBox/VBoxContainer/HBoxContainer2/IconHBox/EnergyIcon3" unique_id=646488343]
+position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_pfayw")
 autoplay = "default"
 frame_progress = 0.033153955
