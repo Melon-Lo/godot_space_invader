@@ -89,7 +89,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_game()
 
 	if event.is_action_pressed("use_ultimate"):
-		if $Player.is_dying or start_button.visible:
+		if $Player.is_dying:
 			return
 		if energy >= 33:
 			use_ultimate()
